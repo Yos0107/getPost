@@ -1,88 +1,116 @@
 class HamroModel {
-  List<Products>? products;
-  int? total;
-  int? skip;
-  int? limit;
+  int? totalPassengers;
+  int? totalPages;
+  List<Data>? data;
 
-  HamroModel({this.products, this.total, this.skip, this.limit});
+  HamroModel({this.totalPassengers, this.totalPages, this.data});
 
   HamroModel.fromJson(Map<String, dynamic> json) {
-    if (json['products'] != null) {
-      products = <Products>[];
-      json['products'].forEach((v) {
-        products!.add(new Products.fromJson(v));
+    totalPassengers = json['totalPassengers'];
+    totalPages = json['totalPages'];
+    if (json['data'] != null) {
+      data = <Data>[];
+      json['data'].forEach((v) {
+        data!.add(new Data.fromJson(v));
       });
     }
-    total = json['total'];
-    skip = json['skip'];
-    limit = json['limit'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.products != null) {
-      data['products'] = this.products!.map((v) => v.toJson()).toList();
+    data['totalPassengers'] = this.totalPassengers;
+    data['totalPages'] = this.totalPages;
+    if (this.data != null) {
+      data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
-    data['total'] = this.total;
-    data['skip'] = this.skip;
-    data['limit'] = this.limit;
     return data;
   }
 }
 
-class Products {
-  int? id;
-  String? title;
-  String? description;
-  int? price;
-  double? discountPercentage;
-  double? rating;
-  int? stock;
-  String? brand;
-  String? category;
-  String? thumbnail;
-  List<String>? images;
+class Data {
+  String? sId;
+  String? name;
+  int? trips;
+  List<Airline>? airline;
+  int? iV;
 
-  Products(
-      {this.id,
-      this.title,
-      this.description,
-      this.price,
-      this.discountPercentage,
-      this.rating,
-      this.stock,
-      this.brand,
-      this.category,
-      this.thumbnail,
-      this.images});
+  Data({this.sId, this.name, this.trips, this.airline, this.iV});
 
-  Products.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    title = json['title'];
-    description = json['description'];
-    price = json['price'];
-    discountPercentage = json['discountPercentage'];
-    rating = json['rating'];
-    stock = json['stock'];
-    brand = json['brand'];
-    category = json['category'];
-    thumbnail = json['thumbnail'];
-    images = json['images'].cast<String>();
+  Data.fromJson(Map<String, dynamic> json) {
+    sId = json['_id'];
+    name = json['name'];
+    trips = json['trips'];
+    if (json['airline'] != null) {
+      airline = <Airline>[];
+      json['airline'].forEach((v) {
+        airline!.add(new Airline.fromJson(v));
+      });
+    }
+    iV = json['__v'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['_id'] = this.sId;
+    data['name'] = this.name;
+    data['trips'] = this.trips;
+    if (this.airline != null) {
+      data['airline'] = this.airline!.map((v) => v.toJson()).toList();
+    }
+    data['__v'] = this.iV;
+    return data;
+  }
+}
+
+class Airline {
+  String? sId;
+  int? id;
+  String? name;
+  String? country;
+  String? logo;
+  String? slogan;
+  String? headQuaters;
+  String? website;
+  String? established;
+  int? iV;
+
+  Airline(
+      {this.sId,
+      this.id,
+      this.name,
+      this.country,
+      this.logo,
+      this.slogan,
+      this.headQuaters,
+      this.website,
+      this.established,
+      this.iV});
+
+  Airline.fromJson(Map<String, dynamic> json) {
+    sId = json['_id'];
+    id = json['id'];
+    name = json['name'];
+    country = json['country'];
+    logo = json['logo'];
+    slogan = json['slogan'];
+    headQuaters = json['head_quaters'];
+    website = json['website'];
+    established = json['established'];
+    iV = json['__v'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['_id'] = this.sId;
     data['id'] = this.id;
-    data['title'] = this.title;
-    data['description'] = this.description;
-    data['price'] = this.price;
-    data['discountPercentage'] = this.discountPercentage;
-    data['rating'] = this.rating;
-    data['stock'] = this.stock;
-    data['brand'] = this.brand;
-    data['category'] = this.category;
-    data['thumbnail'] = this.thumbnail;
-    data['images'] = this.images;
+    data['name'] = this.name;
+    data['country'] = this.country;
+    data['logo'] = this.logo;
+    data['slogan'] = this.slogan;
+    data['head_quaters'] = this.headQuaters;
+    data['website'] = this.website;
+    data['established'] = this.established;
+    data['__v'] = this.iV;
     return data;
   }
 }
